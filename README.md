@@ -1,4 +1,4 @@
-dyncase-phpcas-installer
+dynacase-phpcas-installer
 ========================
 
 Install phpcas
