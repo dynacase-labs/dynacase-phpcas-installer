@@ -1,0 +1,34 @@
+PACKAGE = @PACKAGE@
+VERSION = @VERSION@
+utildir = @PUBRULE@
+pubdir = @prefix@
+srcdir = @srcdir@
+applib = WHAT
+
+export pubdir utildir applib
+
+TAR = gtar
+GZIP_ENV = --best
+
+export targetdir PACKAGE
+
+pages_not_xml = info.xml
+pages_not_php = fam2po.php po2js.php
+
+include $(utildir)/PubRule
+
+DISTFILES += RELEASE VERSION 
+
+$(pubdir)/lib/CAS: $(pubdir)
+	mkdir -p $(pubdir)/lib/CAS
+
+$(pubdir)/lib/CAS/.htaccess: htaccess $(pubdir)/lib/CAS
+	cp $< $@
+
+$(pubdir)/programs: $(pubdir)
+	mkdir -p $(pubdir)/programs
+
+$(pubdir)/programs/phpcas_install: programs/phpcas_install $(pubdir)/programs
+	cp $< $@
+
+publish: $(pubdir)/lib/CAS/.htaccess $(pubdir)/programs/phpcas_install
