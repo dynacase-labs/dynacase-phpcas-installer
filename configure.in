@@ -1,0 +1,36 @@
+# Autoconf script for dynacase-phpcas-installer
+#
+# @author Anakeen
+# @license http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License
+#
+AC_REVISION($Id$)
+dnl
+dnl Process this file with autoconf to produce a configure script.
+dnl
+AC_PREREQ(2.13)
+AC_INIT(./Makefile.in)
+AC_SUBST(VERSION)
+VERSION=`cat VERSION`
+AC_SUBST(RELEASE)
+RELEASE=`cat RELEASE`
+AC_SUBST(PACKAGE)
+PACKAGE=dynacase-phpcas-installer
+
+LICENSE="http://www.fsf.org/licensing/licenses/agpl-3.0.html GNU Affero General Public License"
+AC_SUBST(LICENSE)
+
+ac_default_prefix=/var/www/dynacase
+
+AC_SUBST(PUBRULE)
+PUBRULE="$(pwd)/buildTools"
+AC_ARG_WITH(pubrule, [  --with-pubrule=dir	Path to PubRule], PUBRULE=$withval)
+if test -z ${PUBRULE}; then
+    PUBRULE=`pwd`
+fi
+if test -f $PUBRULE/PubRule; then
+    AC_MSG_NOTICE([PubRule located at $PUBRULE])
+else
+    AC_MSG_ERROR([Could not find PubRule])
+fi
+
+AC_OUTPUT(Makefile info.xml)
